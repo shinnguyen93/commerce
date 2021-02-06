@@ -1,7 +1,19 @@
-{% extends "auctions/layout.html" %}
+{% extends "auctions/layout.html" %} {% load static %} {% block body %}
+<h2>Active Listings</h2>
 
-{% block body %}
-    <h2>Active Listings</h2>
+{% for i in listings %}
 
-    TODO
-{% endblock %}
+<div>
+    <div>
+        <img src="{% static 'auctions/images/1.png' %}" alt="img 1" />
+    </div>
+    <div class="listing-description">
+        <ul>
+            <li><b>{{ i.item.itemName}}</b></li>
+            <li><b>Price: </b>${{ i.item.price}}</li>
+            <li>Created {{ i.createDate }} {{ i.createTime }}</li>
+        </ul>
+    </div>
+</div>
+
+{% endfor %} {% endblock %}
