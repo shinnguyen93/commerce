@@ -5,12 +5,13 @@
 
 <div>
     <div>
-        <img src="{% static 'auctions/images/1.png' %}" alt="img 1" />
+        <a href="{% url 'listings' i.item.id %} "><img src="{% static 'auctions/images/1.png' %}" alt="img 1" /></a>
     </div>
     <div class="listing-description">
         <ul>
-            <li><b>{{ i.item.itemName}}</b></li>
-            <li><b>Price: </b>${{ i.item.price}}</li>
+            <li><strong>{{ i.item.id}}</strong></li>
+            <li><strong>{{ i.item.itemName}}</strong></li>
+            <li><em>Price: </em>${{ i.item.price}}</li>
             <li>Created {{ i.createDate }} {{ i.createTime }}</li>
         </ul>
     </div>

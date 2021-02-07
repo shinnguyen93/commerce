@@ -1,0 +1,39 @@
+{% extends "auctions/layout.html" %} {% load static %} {% block body %}
+<h2>Listings Page</h2>
+<div>
+    <img src="{% static '' %} {{item.listingInfo.item.image}}" alt="item img" />
+</div>
+<div>
+    <ul style="list-style-type: none;">
+        <li>{{ item.listingInfo.item.image }}</li>
+        <li><strong>Item ID : {{ item.listingInfo.item.id}}</strong></li>
+        <li><strong>Item Name: {{ item.listingInfo.item.itemName}}</strong></li>
+        <li><em>Price: </em>${{ item.listingInfo.item.price}}</li>
+        <li>Created {{ item.listingInfo.createDate }} {{ item.listingInfo.createTime }}</li>
+    </ul>
+</div>
+<div>
+    <ul style="list-style-type: none;">
+        <li><strong>Current Bid: ${{ item.bidPrice }}</strong></li>
+        {% if item.bidCount == 0 %}
+        <li> There are no bid for this item. Be the first one!!!!</li>
+        {% else %}
+        <li> {{ item.bidCount }} bids so far.</li>
+        {% endif %}
+    </ul>
+    <form action="{% url 'bid' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control" type="number" name="bid" placeholder="Bid">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Place Bid">
+    </form>
+</div>
+<div>
+    <h2>Details</h2>
+    <ul style="list-style-type: none;">
+        <li>Listed by: {{ item.listingInfo.listedBy }}</li>
+        <li>Category: {{ item.listingInfo.item.category }}</li>
+    </ul>
+</div>
+{% endblock %}

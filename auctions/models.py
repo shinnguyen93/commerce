@@ -17,7 +17,7 @@ class Item(models.Model):
         return f"{self.id}, {self.itemName}, {self.price}, {self.description}, {self.category}"
 
 class AuctionListing(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="item_name")
+    item = models.OneToOneField(Item, on_delete=models.CASCADE, related_name="item")
     listedBy = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="listed_by")
     createDate = models.DateField(default=datetime.now, blank=True)
@@ -27,18 +27,18 @@ class AuctionListing(models.Model):
         return f"{self.item}, {self.listedBy}, {self.createDate}, {self.createTime}"
 
 class Bidding(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="bid_item",null=True)
+    listingInfo = models.ForeignKey(AuctionListing, on_delete=models.CASCADE, related_name="listing_info",null=True)
     bidPrice = models.PositiveIntegerField(null=True)
-    listedBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bid_listed_by",null=True)
+    bidCount = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f"{self.item}, {self.bidPrice}, {self.listedBy}"
+        return f"Listing Info: {self.listingInfo}, Bid Price: {self.bidPrice}, No of Bid: {self.bidCount}"
 
 
 class Comment(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="comment_item",null=True)
+    items = models.ManyToManyField(Item, blank=True, related_name="comment_item")
     comment = models.TextField(null=True)
     userComment = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_comment", null=True)
 
     def __str__(self):
-        return f"{self.item}, {self.comment}, {self.userComment}"
+        return f"{self.items}, {self.comment}, {self.userComment}"

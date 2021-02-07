@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 
@@ -12,6 +12,27 @@ def index(request):
         "listings": AuctionListing.objects.all()
     })
 
+
+def listings(request, item_id):
+    try:
+        item = Bidding.objects.get(id=item_id)
+    except Bidding.DoesNotExist:
+        raise Http404("Item does not Exist!!!!")
+    return render(request, "auctions/listings.html",{
+        "item":item
+    })
+
+def bid(request):
+    pass
+
+def categories(request):
+    pass
+
+def watchlist(request):
+    pass
+
+def createListings(request):
+    pass
 
 def login_view(request):
     if request.method == "POST":

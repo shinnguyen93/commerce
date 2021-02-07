@@ -10,14 +10,14 @@ class ItemAdmin(admin.ModelAdmin):
     fields = ('itemName', 'price', 'description', 'category', 'image')
 
 class AuctionListingAdmin(admin.ModelAdmin):
-    fields = ('item', 'listedBy', 'createDate', 'createTime')
+    list_display = ("__str__", 'listedBy', 'createDate', 'createTime')
 
 class BiddingAdmin(admin.ModelAdmin):
-    fields = ('item', 'bidPrice','listedBy')
+    fields = ('listingInfo', 'bidPrice', 'bidCount')
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('item', 'comment', 'userComment')
+    filter_horizontal = ("items",)
 
 
 admin.site.register(User, UserAdmin)
