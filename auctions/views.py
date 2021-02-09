@@ -46,10 +46,6 @@ def create(request):
             category = request.POST["category"]
         except KeyError:
             return HttpResponseBadRequest("Bad Request: no flight chosen")
-        except Flight.DoesNotExist:
-            return HttpResponseBadRequest("Bad Request: flight does not exist")
-        except Passenger.DoesNotExist:
-            return HttpResponseBadRequest("Bad Request: passenger does not exist")
         passenger.flights.add(flight)
         return HttpResponseRedirect(reverse("flight", args=(flight_id,)))
 

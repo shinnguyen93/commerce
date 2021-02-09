@@ -1,17 +1,17 @@
 {% extends "auctions/layout.html" %} 
 {% load static %} 
 {% block body %}
-<h2>Listings: {{item.listingInfo.item.itemName}}</h2>
+<h2>Listings: {{item.bidItem.itemName}}</h2>
 <div>
-    <img src="{% static 'images/' %}{{item.listingInfo.item.image}} " alt="item img" />
+    <img src="{% static 'images/' %}{{item.bidItem.image}} " alt="item img" />
 </div>
 <div>
     <ul>
-        <li>{{ item.listingInfo.item.image }}</li>
-        <li><strong>Item ID : {{ item.listingInfo.item.id}}</strong></li>
-        <li><strong>Item Name: {{ item.listingInfo.item.itemName}}</strong></li>
-        <li><em>Price: </em>${{ item.listingInfo.item.price}}</li>
-        <li>Created {{ item.listingInfo.createDate }} {{ item.listingInfo.createTime }}</li>
+        <li>{{ item.bidItem.image }}</li>
+        <li><strong>Item ID : {{ item.bidItem.id}}</strong></li>
+        <li><strong>Item Name: {{ item.bidItem.itemName}}</strong></li>
+        <li><em>Price: </em>${{ item.bidItem.price}}</li>
+        <li>Created {{ item.bidItem.createDate }} {{ item.bidItem.createTime }}</li>
     </ul>
 </div>
 <div>
@@ -34,8 +34,8 @@
 <div>
     <h2>Details</h2>
     <ul>
-        <li>Listed by: {{ item.listingInfo.listedBy }}</li>
-        <li>Category: {{ item.listingInfo.item.category }}</li>
+        <li>Listed by: {{ item.bidItem.listedBy }}</li>
+        <li>Category: {{ item.bidItem.category }}</li>
     </ul>
 </div>
 {% endblock %}
