@@ -4,12 +4,12 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Item, AuctionListing, Bidding, Comment
+from .models import User, AuctionListing, Bidding, Comment
 
 
 def index(request):
     return render(request, "auctions/index.html",{
-        "listings": AuctionListing.objects.all()
+        "items": AuctionListing.objects.all()
     })
 
 
@@ -32,7 +32,28 @@ def watchlist(request):
     pass
 
 def createListings(request):
-    pass
+    return render(request, "auctions/createListings.html")
+
+
+def create(request):
+     if request.method == "POST":
+        try:
+            itemName = request.POST["itemName"]
+            description = request.POST["description"]
+            price = request.POST["price"]
+            category = request.POST["category"]
+            itemName = request.POST["itemName"]
+            category = request.POST["category"]
+        except KeyError:
+            return HttpResponseBadRequest("Bad Request: no flight chosen")
+        except Flight.DoesNotExist:
+            return HttpResponseBadRequest("Bad Request: flight does not exist")
+        except Passenger.DoesNotExist:
+            return HttpResponseBadRequest("Bad Request: passenger does not exist")
+        passenger.flights.add(flight)
+        return HttpResponseRedirect(reverse("flight", args=(flight_id,)))
+
+
 
 def login_view(request):
     if request.method == "POST":

@@ -1,10 +1,12 @@
-{% extends "auctions/layout.html" %} {% load static %} {% block body %}
-<h2>Listings Page</h2>
+{% extends "auctions/layout.html" %} 
+{% load static %} 
+{% block body %}
+<h2>Listings: {{item.listingInfo.item.itemName}}</h2>
 <div>
-    <img src="{% static '' %} {{item.listingInfo.item.image}}" alt="item img" />
+    <img src="{% static 'images/' %}{{item.listingInfo.item.image}} " alt="item img" />
 </div>
 <div>
-    <ul style="list-style-type: none;">
+    <ul>
         <li>{{ item.listingInfo.item.image }}</li>
         <li><strong>Item ID : {{ item.listingInfo.item.id}}</strong></li>
         <li><strong>Item Name: {{ item.listingInfo.item.itemName}}</strong></li>
@@ -13,7 +15,7 @@
     </ul>
 </div>
 <div>
-    <ul style="list-style-type: none;">
+    <ul>
         <li><strong>Current Bid: ${{ item.bidPrice }}</strong></li>
         {% if item.bidCount == 0 %}
         <li> There are no bid for this item. Be the first one!!!!</li>
@@ -31,7 +33,7 @@
 </div>
 <div>
     <h2>Details</h2>
-    <ul style="list-style-type: none;">
+    <ul>
         <li>Listed by: {{ item.listingInfo.listedBy }}</li>
         <li>Category: {{ item.listingInfo.item.category }}</li>
     </ul>

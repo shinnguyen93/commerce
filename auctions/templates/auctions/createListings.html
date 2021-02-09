@@ -1,5 +1,23 @@
-{% extends "auctions/layout.html" %} {% load static %} {% block body %}
+{% extends "auctions/layout.html" %}
+{% load static %}
+{% block body %}
 <h2>Create Listing page</h2>
-
-
+<div>
+    <form action="{% static 'create' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" name="itemName" placeholder="Item Name" />
+        </div>
+        <div class="form-group">
+            <textarea name="description" rows="4" cols="50" placeholder="Item Description"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="number" name="price" placeholder="Item Price">
+        </div>
+        <div class="form-group">
+            <input type="text" name="category" placeholder="Item Category">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Create">
+    </form>
+</div>
 {% endblock %}

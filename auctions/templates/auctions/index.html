@@ -1,20 +1,21 @@
 {% extends "auctions/layout.html" %} {% load static %} {% block body %}
 <h2>Active Listings</h2>
 
-{% for i in listings %}
+{% for item in items %}
 
 <div>
     <div>
-        <a href="{% url 'listings' i.item.id %} "><img src="{% static 'auctions/images/1.png' %}" alt="img 1" /></a>
+        <a href="{% url 'listings' item.id %} "><img src="{% static 'images/' %}{{item.image}}" alt="" /></a>
     </div>
     <div class="listing-description">
         <ul>
-            <li><strong>{{ i.item.id}}</strong></li>
-            <li><strong>{{ i.item.itemName}}</strong></li>
-            <li><em>Price: </em>${{ i.item.price}}</li>
-            <li>Created {{ i.createDate }} {{ i.createTime }}</li>
+            <li><strong>{{ item.id }}</strong></li>
+            <li><strong>{{ item.itemName}}</strong></li>
+            <li><em>Price: </em>${{ item.price}}</li>
+            <li>Created {{ item.createDate }} {{ item.createTime }}</li>
         </ul>
     </div>
 </div>
 
-{% endfor %} {% endblock %}
+{% endfor %} 
+{% endblock %}
