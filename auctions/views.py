@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
+from django.core.files.storage import FileSystemStorage
 
 from .models import User, AuctionListing, Bidding, Comment
 
@@ -38,16 +39,25 @@ def createListings(request):
 def create(request):
      if request.method == "POST":
         try:
-            itemName = request.POST["itemName"]
-            description = request.POST["description"]
-            price = request.POST["price"]
-            category = request.POST["category"]
-            itemName = request.POST["itemName"]
-            category = request.POST["category"]
+            itemName = request.POST.get("itemName")
+            description = request.POST.get("description")
+            price = request.POST.get("price")
+            category = request.POST.get("category")
+            user = request.user
+            image = request.FILES["image"]
+            fs = FileSystemStorage()
         except KeyError:
             return HttpResponseBadRequest("Bad Request: no flight chosen")
-        passenger.flights.add(flight)
-        return HttpResponseRedirect(reverse("flight", args=(flight_id,)))
+        newListing = AuctionListing()
+        newListing.itemName=itemName
+        newListing.price=price
+        newListing.description=description
+        newListing.category=category
+        newListing.listedBy=user
+        newListing.image=image
+        newListing.save()
+        fs.save(image.name. image)
+        return HttpResponseRedirect(reverse("index"))
 
 
 

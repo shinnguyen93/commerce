@@ -3,7 +3,7 @@
 {% block body %}
 <h2>Create Listing page</h2>
 <div>
-    <form action="{% static 'create' %}" method="POST">
+    <form action="{% url 'create' %}" method="POST">
         {% csrf_token %}
         <div class="form-group">
             <input type="text" name="itemName" placeholder="Item Name" />
