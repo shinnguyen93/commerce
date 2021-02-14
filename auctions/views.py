@@ -37,26 +37,28 @@ def createListings(request):
 
 
 def create(request):
-     if request.method == "POST":
+     if request.method == "POST" and request.FILES["image"]:
         try:
-            itemName = request.POST.get("itemName")
-            description = request.POST.get("description")
-            price = request.POST.get("price")
-            category = request.POST.get("category")
-            user = request.user
+            itemName = request.POST["itemName"]
+            description = request.POST["description"]
+            price = request.POST["price"]
+            category = request.POST["category"]
+            #image = request.POST["image"]
             image = request.FILES["image"]
+            print(image)
             fs = FileSystemStorage()
-        except KeyError:
-            return HttpResponseBadRequest("Bad Request: no flight chosen")
-        newListing = AuctionListing()
-        newListing.itemName=itemName
-        newListing.price=price
-        newListing.description=description
-        newListing.category=category
-        newListing.listedBy=user
-        newListing.image=image
+            fs.save(image.name, image)
+        except MultiValueDictKeyError:
+            image = "None"
+            return "Multi Value Dict Key Error!!!!!"
+
+        newListing = AuctionListing.objects.create(itemName=itemName,
+        price=price,
+        description=description,
+        category=category,
+        listedBy=request.user,
+        image=image.name)
         newListing.save()
-        fs.save(image.name. image)
         return HttpResponseRedirect(reverse("index"))
 
 
