@@ -11,7 +11,7 @@ class AuctionListing(models.Model):
     price= models.PositiveIntegerField()
     description = models.TextField()
     category = models.CharField(max_length=64, null=True)
-    image = models.ImageField(upload_to="images/",null=True)
+    image = models.ImageField(null=True)
     listedBy = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="listed_by")
     createDate = models.DateField(default=datetime.now, blank=True)
